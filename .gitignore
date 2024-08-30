@@ -1,6 +1,4 @@
 venv
-.streamlit
 Billgenerate.xlsx
 Payment.xlsx
 .ipynb_checkpoints
-secrets.toml

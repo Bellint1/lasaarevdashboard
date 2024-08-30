@@ -532,37 +532,6 @@ merged_df = pd.merge(total_arreas_by_lga_cust, unique_payment_cust, on='Customer
 merged_df.fillna({'CustomerArrears': 0, 'AmountPaid': 0}, inplace=True)
 
 
-# # Convert 'CustomerArrears' and 'AmountPaid' back to numeric for sorting
-# merged_df['CustomerArrears'] = merged_df['CustomerArrears'].replace({'₦': '', ',': ''}, regex=True).astype(float)
-# merged_df['AmountPaid'] = merged_df['AmountPaid'].replace({'₦': '', ',': ''}, regex=True).astype(float)
-
-
-
-# Convert back to formatted strings after sorting
-merged_df['CustomerArrears'] = merged_df['CustomerArrears'].apply(lambda x: f'₦{x:,.2f}')
-merged_df['AmountPaid'] = merged_df['AmountPaid'].apply(lambda x: f'₦{x:,.2f}')
-
-
-
-styled_df = merged_df.style.set_properties(**{
-    'background-color': '#f0f0f0',
-    'color': 'black',
-    'border-color': 'black',
-    'border-style': 'solid',
-    'border-width': '1px',
-    'text-align': 'center'
-}).set_table_styles([{
-    'selector': 'th',
-    'props': [('font-size', '12pt'),
-              ('font-weight', 'bold'),
-              ('color', 'black'),
-              ('background-color', '#BFC9CA')]
-}])
-
-html_table = styled_df.render()
-
-
-
 col1, col2, col3 = st.columns([1, 4, 1])
 if customertype == 'All':
     st.write()
@@ -577,7 +546,28 @@ else:
     with col2:
         sort_column = st.selectbox("Sort by:", ["CustomerArrears", "AmountPaid"])
         sort_order = st.radio("Order:", ("Ascending", "Descending"))
-
         ascending_order = True if sort_order == "Ascending" else False
         merged_df = merged_df.sort_values(by=sort_column, ascending=ascending_order).reset_index(drop=True)
+
+        merged_df['CustomerArrears'] = merged_df['CustomerArrears'].apply(lambda x: f'₦{x:,.2f}')
+        merged_df['AmountPaid'] = merged_df['AmountPaid'].apply(lambda x: f'₦{x:,.2f}')
+
+
+
+        styled_df = merged_df.style.set_properties(**{
+            'background-color': '#f0f0f0',
+            'color': 'black',
+            'border-color': 'black',
+            'border-style': 'solid',
+            'border-width': '1px',
+            'text-align': 'center'
+        }).set_table_styles([{
+            'selector': 'th',
+            'props': [('font-size', '12pt'),
+                ('font-weight', 'bold'),
+                ('color', 'black'),
+                ('background-color', '#BFC9CA')]
+        }])
+
+        html_table = styled_df.render()
         st.markdown(html_table, unsafe_allow_html=True)
