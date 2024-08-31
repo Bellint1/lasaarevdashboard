@@ -2,4 +2,3 @@ venv
 Billgenerate.xlsx
 Payment.xlsx
 .ipynb_checkpoints
-config.toml
