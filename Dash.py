@@ -273,6 +273,7 @@ metric_style = """
 .metric-box div {
     font-size: 1.5rem;
     font-weight: 600;
+    color:  #F1F1F1;
 }
 .metric-box .value {
     font-size: 2.5rem;
@@ -339,6 +340,7 @@ metric_style = """
 .metric-box div {
     font-size: 1.5rem;
     font-weight: 600;
+    color:  #F1F1F1;
 }
 .metric-box .value {
     font-size: 2.5rem;
